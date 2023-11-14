@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Ustawia wysokość na 100% widoku (viewport height) */
+        margin: 0;
+        background: #0b1522;
+        color: white;
+      }
+
+      #paragraphs {
+        text-align: center;
+      }
+
+      p {
+        font-size: 48px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+        display: none; /* Ukryj wszystkie paragrafy na początku */
+      }
+
+      .visible {
+        display: block; /* Pokaż paragraf z klasą 'visible' */
+        animation: fadeIn 1s ease-in-out; /* Dodaj animację pojawiania się */
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      #color {
+        width: 150px;
+        height: 40px;
+        margin-top: 250px;
+        position: absolute;
+        box-shadow: inset 0px 1px 0px 0px #f29c93;
+        background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+        background-color: #fe1a00;
+        border-radius: 6px;
+        border: 1px solid #d83526;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #b23e35;
+      }
+      #speed {
+        width: 150px;
+        height: 40px;
+        margin-top: 350px;
+        position: absolute;
+        box-shadow: inset 0px 1px 0px 0px #fce2c1;
+        background: linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+        background-color: #ffc477;
+        border-radius: 6px;
+        border: 1px solid #eeb44f;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #cc9f52;
+      }
+      #heart {
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        position: relative;
+        transform: rotate(-45deg);
+        box-shadow: -10px 10px 90px #f20044;
+        animation: heart 0.6s linear infinite;
+      }
+      @keyframes heart {
+        0% {
+          transform: rotate(-45deg) scale(1.07);
+        }
+        80% {
+          transform: rotate(-45deg) scale(1);
+        }
+        1000% {
+          transform: rotate(-45deg) scale(0.8);
+        }
+      }
+      #heart:before {
+        content: "";
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        top: -50%;
+        border-radius: 50px;
+        box-shadow: -10px -10px 90px #f20044;
+      }
+      #heart:after {
+        content: "";
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        right: -50%;
+        border-radius: 50px;
+        box-shadow: 10px 10px 90px #f20044;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="paragraphs"></div>
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <div id="heart" style="display: none"></div>
+      </div>
+    </div>
+
+    <script>
+      const paragraphs = [
+        "Od pewnego czasu męczy mnie jedna sprawa...",
+        "Irytuje mnie to, bo nie mogę się na niczym przez to skupić",
+        "Coś tam klikam w komputer, więc pomyślałem, że powiem Ci to również po komputerowemu",
+        "Spodobałaś mi się już od pierwszego spotkania",
+        "Z biegiem czasu poznawałem Cię coraz lepiej i lepiej",
+        "Utwierdzało mnie to tylko w przekonaniu, jaką wyjątkową osobę poznałem",
+        "Momentami miałem wrażenie, że znamy się już kilka lat",
+        "Nigdy jeszcze nie poznałem osoby tak zbliżonej do mnie z charakteru i zainteresowań",
+        "Bardzo cenię to jaką jesteś osobą, uwielbiam Twój styl bycia, poczucie humoru, podejście do świata",
+        "Zdziwisz się, ale lubię również jak mnie wyzywasz w grach haha",
+        "Imponuje mi też Twoja ambicja zawodowa, trzymam kciuki za Twój sukces najmocniej jak mogę",
+        "Na każdym spotkaniu świetnie się bawiłem, a kilka ostatnich było prawie idealne",
+        "Prawie bo brakowało mi tylko kropki nad 'i'",
+        "Emilka, Emilia, Emi czy jak tam sobie wolisz",
+        "Zakochałem się w Tobie, zawsze chciałem mieć właśnie taką dziewczynę jak Ty ❤️",
+        "Ps. sorki, że trochę naciskałem na spotkanie, ale chciałem Ci to koniecznie powiedzieć przed wyjazdem",
+      ];
+
+      const container = document.getElementById("paragraphs");
+
+      function showParagraph(index) {
+        container.innerHTML = `<p class="visible">${paragraphs[index]}</p>`;
+
+        setTimeout(() => {
+          const visibleParagraph = document.querySelector(".visible");
+          visibleParagraph.classList.remove("visible");
+
+          if (index < paragraphs.length - 1) {
+            showParagraph(index + 1);
+          }
+          if (index == 15) {
+            console.log("dupa");
+            const heartElement = document.getElementById("heart");
+            heartElement.style.display = "block";
+          }
+        }, 4000);
+      }
+
+      showParagraph(0);
+    </script>
+  </body>
+</html>
